@@ -26,7 +26,7 @@ test_sum_hist()
 void
 test_sum_hist_pow()
 {
-  TEST_ASSERT_EQUAL_FLOAT(1240.0, sum_hist_pow(input));
+  TEST_ASSERT_EQUAL_FLOAT(1241.0, sum_hist_pow(input));
 }
 
 
