@@ -27,7 +27,7 @@ ALL_SRCS = ${TEST_FILES} $(SRCS)
 
 
 
-all: runner ${TEST_SUITE} run
+test: runner ${TEST_SUITE} run
 
 
 runner:
