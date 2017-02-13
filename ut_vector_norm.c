@@ -1,6 +1,5 @@
 #include "unity.h"
 
-
 #include "vector_norm.h"
 
 
