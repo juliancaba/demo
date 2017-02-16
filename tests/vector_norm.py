@@ -27,7 +27,8 @@ class Client(Ice.Application):
 
         proxy = ic.stringToProxy(fpga_endpoint)
         proxy = TestingService.GCommandPrx.uncheckedCast(proxy)
-        self.dout=reversed(proxy.remoteExec(0x42000000, self.din))
+        self.dout=proxy.remoteExec(0x42000000, self.din)
+        print (self.dout)
 
     
 def float_to_ieee754(f):
@@ -45,52 +46,85 @@ def charSeq_to_intSeq(cseq):
         aux.append(int(it))
         it_index += 1
         if it_index%4 == 1:
-            iseq.append(hex(struct.unpack("!I",  bytearray(aux))[0]))
+            iseq.append(hex(struct.unpack("<I",  bytearray(aux))[0]))
             aux = []
     return iseq
-                
+
+
+def int_to_byte(n):
+    b = []
+    for it in range(0,4):
+        b.append(n&0xFF)
+        n >>= 8
+    return b
 
 
 
 def scale2(sum):
     din = []
-    din.append(0x00010104)
-    din.append(0x00000001)
-    din.append(float_to_ieee754(sum))
+    din.extend(int_to_byte(0x00010104))
+    din.extend(int_to_byte(0x00000001))
+    din.extend(int_to_byte(float_to_ieee754(sum)))
 
+    print(din)
     testCli = Client()
     testCli.arguments(din)
     testCli.main([fpga_endpoint])
     dout = testCli.result()
     idout = charSeq_to_intSeq(dout)
 
+    print (idout)
     head1 = idout[0]
     head2 = idout[1]
     _ret = ieee754_to_float(idout[2])
+
+    del testCli
+    del idout
     
     return _ret
 
 def sum_hist_pow(histIN):
-    # din = []
-    # din.append(0x00010304)
-    # din.append(0x00000010)
+    din = []
+    din.extend(int_to_byte(0x00010204))
+    din.extend(int_to_byte(0x00000010))
 
-    # for it in histIN:
-    #     din.append(float_to_ieee754(it))
-
-    # testCli = Client()
-    # testCli.arguments(din)
-    # testCli.main([fpga_endpoint])
-    # dout = testCli.result()
-    # idout = charSeq_to_intSeq(dout)
+    for it in histIN:
+        din.extend(int_to_byte(float_to_ieee754(it)))
     
-    # head1 = idout[0]
-    # head2 = idout[1]
-    # _ret = ieee754_to_float(idout[2])
-    # return _ret
-    return 1240.0
+    testCli = Client()
+    testCli.arguments(din)
+    testCli.main([fpga_endpoint])
+    dout = testCli.result()
+    idout = charSeq_to_intSeq(dout)
+    
+    head1 = idout[0]
+    head2 = idout[1]
+    _ret = ieee754_to_float(idout[2])
+    
+    del testCli
+    return _ret
 
-def mult_hist_scale(histAUX, scale, histOUT):
-    for i in histAUX:
-        histOUT.append(i*scale)
+def mult_hist_scale(histAUX, scale, histOUT):    
+    din = []
+    din.extend(int_to_byte(0x00010304))
+    din.extend(int_to_byte(0x00000011))
 
+    for it in histAUX:
+        din.extend(int_to_byte(float_to_ieee754(it)))
+        
+    din.extend(int_to_byte(float_to_ieee754(scale)))
+        
+    testCli = Client()
+    testCli.arguments(din)
+    testCli.main([fpga_endpoint])
+    dout = testCli.result()
+    idout = charSeq_to_intSeq(dout)
+    
+    head1 = idout[0]
+    head2 = idout[1]
+    _ret = []
+    for indx in range(0,16):
+        _ret.append(ieee754_to_float(idout[2]))
+
+    histOUT = _ret
+    del testCli
