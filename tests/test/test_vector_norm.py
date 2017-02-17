@@ -15,7 +15,7 @@ class TestL2Norm(unittest.TestCase):
         din = []
         for i in range(0,16):
             din.append(float(i))
-        self.assertEqual(1242.0, sum_hist_pow(din))
+        self.assertEqual(1241.0, sum_hist_pow(din))
 
     def test_mult_hist_scale(self):
         din = []
