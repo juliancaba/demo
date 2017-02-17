@@ -28,7 +28,6 @@ class Client(Ice.Application):
         proxy = ic.stringToProxy(fpga_endpoint)
         proxy = TestingService.GCommandPrx.uncheckedCast(proxy)
         self.dout=proxy.remoteExec(0x42000000, self.din)
-        print (self.dout)
 
     
 def float_to_ieee754(f):
@@ -66,14 +65,12 @@ def scale2(sum):
     din.extend(int_to_byte(0x00000001))
     din.extend(int_to_byte(float_to_ieee754(sum)))
 
-    print(din)
     testCli = Client()
     testCli.arguments(din)
     testCli.main([fpga_endpoint])
     dout = testCli.result()
     idout = charSeq_to_intSeq(dout)
 
-    print (idout)
     head1 = idout[0]
     head2 = idout[1]
     _ret = ieee754_to_float(idout[2])

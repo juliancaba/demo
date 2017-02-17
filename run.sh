@@ -29,4 +29,4 @@ echo "[INFO] Send partial bitstream to FPGA"
 echo "[INFO] Running tests"
 cd $TEST_DIR
 make tests
-#cd -
+
