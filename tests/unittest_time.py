@@ -40,7 +40,7 @@ class TimeTestCase(TestCase):
       _time_value = 0
       _time_valid = 0
       din = []
-      din.extend(int_to_byte(0x00010004))
+      din.extend(int_to_byte(0x00010204))
       din.extend(int_to_byte(0x00000001))
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
 
@@ -63,7 +63,7 @@ class TimeTestCase(TestCase):
         return _time_value
 
       din = []
-      din.extend(int_to_byte(0x00010100))
+      din.extend(int_to_byte(0x00010300))
       din.extend(int_to_byte(0x00020000))
     
       testCli = FPGA_hwtClient()
