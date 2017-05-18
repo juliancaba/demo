@@ -19,7 +19,7 @@ class TestL2Norm(TimeTestCase):
         self.CONFIGURE_UNITTEST_TIME_ENABLE_CYCLES(2000000)
 
         self.UNITTEST_TIME_CONFIGURE();
-        self.assertEqual(0.21739131212234497, scale2(9.0))
+        self.assertEqual(0.21739131212234497, scale2(19.0))
         self.assertTimeLT(40)
         self.assertTimeGT(35)
         
