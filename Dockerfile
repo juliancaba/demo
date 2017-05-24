@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y make libncurses5 libx11-6 libc6-dev pyt
 #ARG LM_LICENSE_FILE
 ENV LM_LICENSE_FILE=1900@atclab.esi.uclm.es:1901@atclab.esi.uclm.es:1702@atclab.esi.uclm.es
 
-COPY * /test/
+COPY . /test/
 # COPY src /test/src
 # COPY run.sh /test
 # COPY tests /test/tests
