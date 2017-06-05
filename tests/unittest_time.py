@@ -61,7 +61,7 @@ class TimeTestCase(TestCase):
       din = []
       din.extend(int_to_byte(self._enableCycles))
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
-      idout=sendMessage(self._time_hw_addr, 0x00010204, 2, din)
+      idout=sendMessage(self._time_hw_addr, 0x00010204, 0x2, din)
 
     
     def unittest_TimeGetTime(self):
@@ -70,7 +70,7 @@ class TimeTestCase(TestCase):
       if _time_valid == 1:
         return _time_value
 
-      idout=sendMessage(self._time_hw_addr, 0x00010300, 0, None)
+      idout=sendMessage(self._time_hw_addr, 0x00010300, 0x0, None)
       time = idout[0]
 
       self._unittest_TimeReset()

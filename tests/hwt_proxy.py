@@ -4,6 +4,7 @@
 
 import Ice
 from service_config import fpga_endpoint
+from arm_casting_ieee754 import *
 
 Ice.loadSlice("/opt/hw_testing/tools/slices/testingService.ice")
 import TestingService
@@ -13,9 +14,9 @@ def sendMessage(hwAddr, head1, head2, din):
     _din =[]
     _din.extend(int_to_byte(head1))
     _din.extend(int_to_byte(head2))
-    for it in din:
-        _din.extend(it)
-    
+    if din != None:
+        _din.append(din)
+     
     testCli = FPGA_hwtClient()
     testCli.arguments(hwAddr, _din)
     testCli.main([None])#[fpga_endpoint])
@@ -23,9 +24,10 @@ def sendMessage(hwAddr, head1, head2, din):
     idout = charSeq_to_intSeq(dout)
 
     del testCli
+
+    if idout != None:
+        return idout[2:]
     del idout
-    
-    return idout[2:]
 
 
 class FPGA_hwtClient(Ice.Application):
