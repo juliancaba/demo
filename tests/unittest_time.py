@@ -3,7 +3,7 @@
 
 import sys
 import operator
-from hwt_proxy import FPGA_hwtClient
+from hwt_proxy import sendMessage
 from arm_casting_ieee754 import *
 from unittest import TestCase
 
@@ -26,21 +26,8 @@ class TimeTestCase(TestCase):
       self._time_hw_addr = 0x41000000
       self._enableCycles = 0x00001000
 
-      din = []
-      din.extend(int_to_byte(0x00010100))
-      din.extend(int_to_byte(0x00000000))
-
-      testCli = FPGA_hwtClient()
-      testCli.arguments(self._time_hw_addr, din)
-      testCli.main([None])
-      dout = testCli.result()
-      idout = charSeq_to_intSeq(dout)
-
-      head1 = idout[0]
-
-      del testCli
-      del idout
-
+      idout=sendMessage(self._time_hw_addr, 0x00010100, 0, None)
+      
 
     def CONFIGURE_UNITTEST_TIME_HW_ADDR(self, addr):
       self._time_hw_addr = addr
@@ -63,20 +50,8 @@ class TimeTestCase(TestCase):
       _time_value = 0
       _time_valid = 0
       din = []
-      din.extend(int_to_byte(0x00010204))
-      din.extend(int_to_byte(0x00000001))
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
-
-      testCli = FPGA_hwtClient()
-      testCli.arguments(self._time_hw_addr, din)
-      testCli.main([None])
-      dout = testCli.result()
-      idout = charSeq_to_intSeq(dout)
-
-      head1 = idout[0]
-
-      del testCli
-      del idout
+      idout=sendMessage(self._time_hw_addr, 0x00010204, 1, din)
 
     def UNITTEST_TIME_CONFIGURE(self):
       global _time_value
@@ -84,21 +59,9 @@ class TimeTestCase(TestCase):
       _time_value = 0
       _time_valid = 0
       din = []
-      din.extend(int_to_byte(0x00010204))
-      din.extend(int_to_byte(0x00000002))
       din.extend(int_to_byte(self._enableCycles))
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
-
-      testCli = FPGA_hwtClient()
-      testCli.arguments(self._time_hw_addr, din)
-      testCli.main([None])
-      dout = testCli.result()
-      idout = charSeq_to_intSeq(dout)
-
-      head1 = idout[0]
-
-      del testCli
-      del idout
+      idout=sendMessage(self._time_hw_addr, 0x00010204, 2, din)
 
     
     def unittest_TimeGetTime(self):
@@ -107,22 +70,8 @@ class TimeTestCase(TestCase):
       if _time_valid == 1:
         return _time_value
 
-      din = []
-      din.extend(int_to_byte(0x00010300))
-      din.extend(int_to_byte(0x00020000))
-    
-      testCli = FPGA_hwtClient()
-      testCli.arguments(self._time_hw_addr, din)
-      testCli.main([None])
-      dout = testCli.result()
-      idout = charSeq_to_intSeq(dout)
-
-      head1 = idout[0]
-      head2 = idout[1]
-      time = idout[2]
-
-      del testCli
-      del idout
+      idout=sendMessage(self._time_hw_addr, 0x00010300, 0, None)
+      time = idout[0]
 
       self._unittest_TimeReset()
       _time_valid = 1
