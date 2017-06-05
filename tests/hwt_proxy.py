@@ -9,6 +9,24 @@ Ice.loadSlice("/opt/hw_testing/tools/slices/testingService.ice")
 import TestingService
 
 
+def sendMessage(hwAddr, head1, head2, din):
+    _din =[]
+    _din.extend(int_to_byte(head1))
+    _din.extend(int_to_byte(head2))
+    for it in din:
+        _din.extend(it)
+    
+    testCli = FPGA_hwtClient()
+    testCli.arguments(hwAddr, _din)
+    testCli.main([None])#[fpga_endpoint])
+    dout = testCli.result()
+    idout = charSeq_to_intSeq(dout)
+
+    del testCli
+    del idout
+    
+    return idout[2:]
+
 
 class FPGA_hwtClient(Ice.Application):
     def arguments(self, addr, din):
