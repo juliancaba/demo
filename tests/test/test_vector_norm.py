@@ -60,7 +60,7 @@ class TestL2Norm(TimeTestCase):
         self.assertTimeGT(200)
         
         for o,r in zip(dout,ref):
-            self.assertEqual(r,o)
+            self.assertTrue(abs(r-o)<0.0001)
 
 # if __name__ == '__main__':
 #     unittest.main()
