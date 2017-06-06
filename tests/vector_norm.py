@@ -6,7 +6,7 @@
 from hwt_proxy import sendMessage
 from arm_casting_ieee754 import *
 
-import sys
+import sys, copy
 
 def scale2(sum):
     din = []
@@ -45,7 +45,7 @@ def mult_hist_scale(histAUX, scale, histOUT):
     for indx in range(0,16):
         _ret.append(ieee754_to_float(payload[indx]))
 
-    histOUT = _ret
+    histOUT.extend(_ret)
 
     
 def l2norm(histIN, histOUT):
@@ -54,11 +54,10 @@ def l2norm(histIN, histOUT):
     for it in histIN:
         din.extend(int_to_byte(float_to_ieee754(it)))
 
-    idout = sendMessage(0x42000000, 0x00010404, 0x00000010, din)
+    head, payload = sendMessage(0x42000000, 0x00010704, 0x00000010, din)
 
-    print (idout)
     _ret = []
-    for indx in range(0,15):
-        _ret.append(ieee754_to_float(idout[indx]))
-
-    histOUT = _ret
+    for indx in range(0,16):
+        _ret.append(ieee754_to_float(payload[indx]))
+    
+    histOUT.extend(_ret)

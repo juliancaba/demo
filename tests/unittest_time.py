@@ -73,7 +73,7 @@ class TimeTestCase(TestCase):
       head,payload=sendMessage(self._time_hw_addr, 0x00010300, 0x00000000, None)
       time = payload[0]
 
-      self._unittest_TimeReset()
+      #self._unittest_TimeReset()
       _time_valid = 1
       _time_value = time
 

@@ -26,7 +26,7 @@ def sendMessage(hwAddr, head1, head2, din):
     del testCli
     
     if idout != None:
-        return idout[0:1], idout[2:]
+        return idout[0:2], idout[2:]
     del idout
 
 
