@@ -26,7 +26,7 @@ class TimeTestCase(TestCase):
       self._time_hw_addr = 0x41000000
       self._enableCycles = 0x00001000
 
-      idout=sendMessage(self._time_hw_addr, 0x00010100, 0x00000000, None)
+      head,payload=sendMessage(self._time_hw_addr, 0x00010100, 0x00000000, None)
       
 
     def CONFIGURE_UNITTEST_TIME_HW_ADDR(self, addr):
@@ -51,7 +51,7 @@ class TimeTestCase(TestCase):
       _time_valid = 0
       din = []
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
-      idout=sendMessage(self._time_hw_addr, 0x00010204, 0x00000001, din)
+      head,payload=sendMessage(self._time_hw_addr, 0x00010204, 0x00000001, din)
 
     def UNITTEST_TIME_CONFIGURE(self):
       global _time_value
@@ -61,7 +61,7 @@ class TimeTestCase(TestCase):
       din = []
       din.extend(int_to_byte(self._enableCycles))
       din.extend(int_to_byte((self._inputWords << 16) | self._outputWords))
-      idout=sendMessage(self._time_hw_addr, 0x00010204, 0x2, din)
+      head,payload=sendMessage(self._time_hw_addr, 0x00010204, 0x2, din)
 
     
     def unittest_TimeGetTime(self):
@@ -70,8 +70,8 @@ class TimeTestCase(TestCase):
       if _time_valid == 1:
         return _time_value
 
-      idout=sendMessage(self._time_hw_addr, 0x00010300, 0x00000000, None)
-      time = idout[0]
+      head,payload=sendMessage(self._time_hw_addr, 0x00010300, 0x00000000, None)
+      time = payload[0]
 
       self._unittest_TimeReset()
       _time_valid = 1

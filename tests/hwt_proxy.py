@@ -24,9 +24,9 @@ def sendMessage(hwAddr, head1, head2, din):
     idout = charSeq_to_intSeq(dout)
 
     del testCli
-
+    
     if idout != None:
-        return idout[2:]
+        return idout[0:1], idout[2:]
     del idout
 
 
