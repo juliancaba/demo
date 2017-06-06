@@ -15,7 +15,7 @@ def sendMessage(hwAddr, head1, head2, din):
     _din.extend(int_to_byte(head1))
     _din.extend(int_to_byte(head2))
     if din != None:
-        _din.append(din)
+        _din.extend(din)
      
     testCli = FPGA_hwtClient()
     testCli.arguments(hwAddr, _din)

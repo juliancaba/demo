@@ -27,7 +27,7 @@ def charSeq_to_intSeq(cseq):
     aux = []
     if cseq == None:
         return None
-    
+
     for it in cseq:
         aux.append(int(it))
         it_index += 1
