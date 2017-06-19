@@ -1,6 +1,7 @@
 #!/bin/bash --
 # -*- coding: utf-8; mode: shell-script; tab-width: 4 -*-
 
+
 HW_SOURCES=src/hw_src
 TEST_DIR=tests
 TEST_TYPE=UT
