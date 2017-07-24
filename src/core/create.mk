@@ -1,5 +1,7 @@
 PRJ=tmp
 
+VERSION=2015
+
 
 all: clean gen cpy run dcp
 
@@ -18,8 +20,8 @@ cpy:
 	cd src; ln -sf ../hls/prj.TDD/solution/syn/vhdl/*.vhd .; \
 	cd -
 
-run:
-	vivado -mode batch -source create.tcl
+run: create_$(VERSION).tcl
+	vivado -mode batch -source $^
 
 
 clean:
