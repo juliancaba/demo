@@ -4,7 +4,7 @@
 HW_SOURCES=src/hw_src
 TEST_DIR=tests
 TEST_TYPE=UT
-VERSION=2016
+VERSION=2015
 
 echo "[INFO] Setup testing environment"
 source /opt/Xilinx/Vivado/$VERSION.4/settings64.sh
