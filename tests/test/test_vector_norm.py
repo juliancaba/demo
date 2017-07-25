@@ -21,7 +21,7 @@ class TestL2Norm(TimeTestCase):
         self.UNITTEST_TIME_CONFIGURE();
         self.assertEqual(0.21739131212234497, scale2(9.0))
         self.assertTimeLT(40)
-        self.assertTimeGT(30)
+        self.assertTimeGT(20)
         
 
     def test_sum_hist_pow(self):
