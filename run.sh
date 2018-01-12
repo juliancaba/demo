@@ -8,7 +8,6 @@ VERSION=2015
 PLATFORM_VERSION=2015
 
 
-
 echo "[INFO] Setup testing environment"
 source /opt/Xilinx/Vivado/$VERSION.4/settings64.sh
 cp -r /opt/hw_testing/platform_$PLATFORM_VERSION/ platform
