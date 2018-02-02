@@ -14,8 +14,8 @@ class TestL2Norm(RCUnittestTestCase):
     def test_scale2(self):
         self.TEST_RESET()
         self.CONFIGURE_HW_ADDR(0x41000000)
-        self.CONFIGURE_IGNORE_INPUT(3)
-        self.CONFIGURE_IGNORE_OUTPUT(1)
+        self.CONFIGURE_SKIP_INPUT(3)
+        self.CONFIGURE_SKIP_OUTPUT(1)
         self.CONFIGURE_ENABLE_CYCLES(2000000)
 
         self.TEST_CONFIGURE();
@@ -31,8 +31,8 @@ class TestL2Norm(RCUnittestTestCase):
             
         self.TEST_RESET()
         self.CONFIGURE_HW_ADDR(0x41000000)
-        self.CONFIGURE_IGNORE_INPUT(18)
-        self.CONFIGURE_IGNORE_OUTPUT(1)
+        self.CONFIGURE_SKIP_INPUT(18)
+        self.CONFIGURE_SKIP_OUTPUT(1)
         self.CONFIGURE_ENABLE_CYCLES(2000000)
 
         self.TEST_CONFIGURE();
@@ -49,8 +49,8 @@ class TestL2Norm(RCUnittestTestCase):
 
         self.TEST_RESET();
         self.CONFIGURE_HW_ADDR(0x41000000)
-        self.CONFIGURE_IGNORE_INPUT(18)
-        self.CONFIGURE_IGNORE_OUTPUT(1)
+        self.CONFIGURE_SKIP_INPUT(18)
+        self.CONFIGURE_SKIP_OUTPUT(1)
         self.CONFIGURE_ENABLE_CYCLES(2000000)
 
         self.TEST_CONFIGURE();
