@@ -147,7 +147,6 @@ class RCUnittestTestCase(TestCase):
     def assertGeneral(self, func, expected):
         #timeExecution = int(str(self.unittest_TimeGetTime()),16)
         timeExecution = self.unittest_TimeGetTime()
-        print(timeExecution)
         evaluation = func(timeExecution, expected, msg=("TIME FAIL!!!"))
         
 
