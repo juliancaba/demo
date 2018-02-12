@@ -138,9 +138,9 @@ class RCUnittestTestCase(TestCase):
         #self._unittest_TimeReset()
         _time_valid = 1
         if self._testingFUBlock == 0:
-            _time_value = time #int(str(time),16)
+            _time_value = int(str(time),16)
         else:
-            _time_value = time - (int(self._testingFUBlock)-1)
+            _time_value = int(str(time),16) - (int(self._testingFUBlock)-1)
         return _time_value
 
 
