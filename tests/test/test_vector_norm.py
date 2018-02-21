@@ -57,7 +57,7 @@ class TestL2Norm(RCUnittestTestCase):
         mult_hist_scale(din, 0.1, dout)
         
         self.assertTimeLT(2350)
-        self.assertTimeGT(200)
+        self.assertTimeGT(20)
         
         for o,r in zip(dout,ref):
             self.assertTrue(abs(r-o)<0.0001)
