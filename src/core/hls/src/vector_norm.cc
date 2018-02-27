@@ -24,6 +24,7 @@ sum_hist_pow(float histIN[HIST_SIZE])
 }
 
 
+
 float
 scale2(float sum)
 {
